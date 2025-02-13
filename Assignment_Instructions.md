@@ -1,4 +1,4 @@
-**GVZork**
+ # **GVZork**
 
 One of the greatest text-based games of all time - Zork - remains popular with enthusiasts to this day. While modern games rely on impressive visuals, Zork relied upon a good story and imagination. If you’ve never played it, you can do so at
 
