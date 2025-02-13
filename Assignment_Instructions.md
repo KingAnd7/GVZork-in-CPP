@@ -1,7 +1,5 @@
 **GVZork**
 
-*Note: For this project you are able to use an AI assistant such as ChatGPT or CoPilot. Just note in your comments the code that came from it.*
-
 One of the greatest text-based games of all time - Zork - remains popular with enthusiasts to this day. While modern games rely on impressive visuals, Zork relied upon a good story and imagination. If you’ve never played it, you can do so at
 
 [https://classicreload.com/zork-i.html](https://classicreload.com/zork-i.html)
