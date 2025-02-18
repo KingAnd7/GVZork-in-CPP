@@ -87,6 +87,20 @@ class NPC{
             }
 
         }
+
+        std::string getName() const{
+            return name;
+        }
+        void setName(std::string newValue){
+            name = newValue;
+        }
+        std::string getDescription() const{
+            return description;
+        }
+        void setDescription(std::string newValue){
+            description = newValue;
+        }
+
     private:
     std::string name;
     std::string description;
