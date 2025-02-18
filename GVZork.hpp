@@ -34,7 +34,7 @@ class ITEM{
                 this->weight = weight;
             }
             if (gobbo != true || gobbo != false){
-                throw std::runtime__error("true or false expected");
+                throw std::runtime_error("true or false expected");
             }
             else{
                 this->gobbo = gobbo;
@@ -78,12 +78,13 @@ class ITEM{
         std::string description;
         int calorie;
         float weight;
+        bool gobbo;
 
 };
 
 class NPC{
     public:
-        NPC(std::string name, std::string description, std::vector inventory, bool gobbo){
+        NPC(std::string name, std::string description, std::vector<ITEM> inventory, bool gobbo){
             if (name.empty()){
                 throw std::runtime_error("Name can not be Null");
             }
@@ -97,7 +98,7 @@ class NPC{
                 this->description = description;
             }
             if (gobbo != true || gobbo != false){
-                throw std::runtime_error("true or false expected")
+                throw std::runtime_error("true or false expected");
             }
             else{
                 this->gobbo = gobbo;
@@ -121,12 +122,13 @@ class NPC{
     private:
     std::string name;
     std::string description;
-    std::vector inventory;
+    std::vector<ITEM> inventory;
+    bool gobbo;
 };
 
 class LOCATIONS{
         public:
-                LOCATION(std::string map, std::string direction, LOCATION name, NPC name, std::vector<ITEM>){
+                LOCATIONS(std::string map, std::string direction, LOCATIONS location, NPC npc, std::vector<ITEM> items){
 
                 }
         private:
