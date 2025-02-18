@@ -2,9 +2,9 @@
 #include <iostream>
 #include <stdio.h>
 
-class Item{
+class ITEM{
     public:
-        Item(std::string name, std::string description, int calorie, float weight){
+        ITEM(std::string name, std::string description, int calorie, float weight){
             if (name.empty()){
                 throw std::runtime_error("Name can not be Null");
             }
@@ -31,7 +31,7 @@ class Item{
             }
         }
 
-        friend std::ostream& operator<<(std::ostream& os, const Item& i){
+        friend std::ostream& operator<<(std::ostream& os, const ITEM& i){
             os << i.name << " (" << i.calorie << " calories) - " << i.weight << "lb - " << i.description;
             return os;
         }
@@ -104,4 +104,5 @@ class NPC{
     private:
     std::string name;
     std::string description;
+    int message_count;
 };
