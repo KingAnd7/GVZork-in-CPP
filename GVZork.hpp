@@ -30,6 +30,12 @@ class Item{
                 this->weight = weight;
             }
         }
+
+        friend std::ostream& operator<<(std::ostream& os, const Item& i){
+            os << i.name << "(" << i.calorie << "calories)" << " - " << i.weight << "lb - " << i.description;
+            return os;
+        }
+
 //      Getters and setters
         std::string getName() const{
             return name;
