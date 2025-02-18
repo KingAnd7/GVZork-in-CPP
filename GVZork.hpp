@@ -17,13 +17,13 @@ class Item{
             else{
                 this->description = description;
             }
-            if(calorie <= 0 || calorie >= 100 || typeid(calorie) != typeid(int)){
+            if(calorie < 0 || calorie > 100 || typeid(calorie) != typeid(int)){
                 throw std::runtime_error("Calorie has to be a int that is more than 0 or less than 100");
             }
             else{
                 this->calorie = calorie;
             }
-            if(weight <= 0 || weight >= 500 || typeid(weight) != typeid(float)){
+            if(weight < 0 || weight > 500 || typeid(weight) != typeid(float)){
                 throw std::runtime_error("Calorie has to be a int that is more than 0 or less than 100");
             }
             else{
@@ -32,7 +32,7 @@ class Item{
         }
 
         friend std::ostream& operator<<(std::ostream& os, const Item& i){
-            os << i.name << "(" << i.calorie << "calories)" << " - " << i.weight << "lb - " << i.description;
+            os << i.name << " (" << i.calorie << " calories) - " << i.weight << "lb - " << i.description;
             return os;
         }
 
@@ -58,7 +58,7 @@ class Item{
         float getWeight() const{
             return weight;
         }
-        void setweight(float newValue){
+        void setWeight(float newValue){
             weight = newValue;
         }
         
