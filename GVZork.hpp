@@ -33,7 +33,7 @@ class ITEM{
             else{
                 this->weight = weight;
             }
-            if (gobbo != true || gobbo != false){
+            if (gobbo != true && gobbo != false){
                 throw std::runtime_error("true or false expected");
             }
             else{
