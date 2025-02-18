@@ -12,7 +12,7 @@ needed amounts:
 Makinaw
 N:None
 S:Manitou
-E:Holt Hook
+E:HHLC
 W:None
 
 Manitou:
@@ -21,7 +21,7 @@ S:Padnos
 E:None
 W:Kindshi
 
-Holt Hook:
+HHLC:
 N:None
 S:Arboretum
 E:None
@@ -52,7 +52,7 @@ E:Manitou
 W:None
 
 Arboretum:
-N:Holt Hook
+N:HHLC
 S:None
 E:None
 W:Padnos
