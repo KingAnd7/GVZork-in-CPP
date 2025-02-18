@@ -69,3 +69,25 @@ class Item{
         float weight;
 
 };
+
+class NPC{
+    public:
+        NPC(std::string name, std::string description){
+            if (name.empty()){
+                throw std::runtime_error("Name can not be Null");
+            }
+            else{
+                this-> name = name;
+            }
+            if (description.empty()){
+                throw std::runtime_error("Description can not be Null");
+            }
+            else{
+                this->description = description;
+            }
+
+        }
+    private:
+    std::string name;
+    std::string description;
+};
