@@ -122,6 +122,7 @@ class NPC{
     private:
     std::string name;
     std::string description;
+    int message_count;
     std::vector<ITEM> inventory;
     bool gobbo;
 };
