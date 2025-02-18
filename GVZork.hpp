@@ -1,10 +1,14 @@
+#ifndef         __HPP__GVZork__
+#define         __HPP__GVZork__
+
 #include <string>
 #include <iostream>
 #include <stdio.h>
+#include <vector>
 
 class ITEM{
     public:
-        ITEM(std::string name, std::string description, int calorie, float weight){
+        ITEM(std::string name, std::string description, int calorie, float weight, bool gobbo){
             if (name.empty()){
                 throw std::runtime_error("Name can not be Null");
             }
@@ -29,6 +33,13 @@ class ITEM{
             else{
                 this->weight = weight;
             }
+            if (gobbo != true || gobbo != false){
+                throw std::runtime__error("true or false expected");
+            }
+            else{
+                this->gobbo = gobbo;
+            }
+
         }
 
         friend std::ostream& operator<<(std::ostream& os, const ITEM& i){
@@ -61,7 +72,7 @@ class ITEM{
         void setWeight(float newValue){
             weight = newValue;
         }
-        
+
     private:
         std::string name;
         std::string description;
@@ -72,7 +83,7 @@ class ITEM{
 
 class NPC{
     public:
-        NPC(std::string name, std::string description){
+        NPC(std::string name, std::string description, std::vector inventory, bool gobbo){
             if (name.empty()){
                 throw std::runtime_error("Name can not be Null");
             }
@@ -84,6 +95,12 @@ class NPC{
             }
             else{
                 this->description = description;
+            }
+            if (gobbo != true || gobbo != false){
+                throw std::runtime_error("true or false expected")
+            }
+            else{
+                this->gobbo = gobbo;
             }
 
         }
@@ -104,5 +121,16 @@ class NPC{
     private:
     std::string name;
     std::string description;
-    int message_count;
+    std::vector inventory;
 };
+
+class LOCATIONS{
+        public:
+                LOCATION(std::string map, std::string direction, LOCATION name, NPC name, std::vector<ITEM>){
+
+                }
+        private:
+
+};
+
+#endif
