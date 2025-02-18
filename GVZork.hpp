@@ -5,10 +5,30 @@
 class Item{
     public:
         Item(std::string name, std::string description, int calorie, float weight){
-            this-> name = name;
-            this->description = description;
-            this->calorie = calorie;
-            this->weight = weight;
+            if (name.empty()){
+                throw std::runtime_error("Name can not be Null");
+            }
+            else{
+                this-> name = name;
+            }
+            if (description.empty()){
+                throw std::runtime_error("Description can not be Null");
+            }
+            else{
+                this->description = description;
+            }
+            if(calorie <= 0 || calorie >= 100 || typeid(calorie) != typeid(int)){
+                throw std::runtime_error("Calorie has to be a int that is more than 0 or less than 100");
+            }
+            else{
+                this->calorie = calorie;
+            }
+            if(weight <= 0 || weight >= 500 || typeid(weight) != typeid(float)){
+                throw std::runtime_error("Calorie has to be a int that is more than 0 or less than 100");
+            }
+            else{
+                this->weight = weight;
+            }
         }
 //      Getters and setters
         std::string getName() const{
