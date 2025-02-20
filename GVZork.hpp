@@ -134,31 +134,31 @@ class LOCATIONS{
 			
 			//}
 			//else{
-			
+				//this->map = map;	
 			//}
 			//if (direction){
 
 			//}
 			//else{
-
+				//this->direction = direction;
 			//}
 			//if (location){
-
+			
 			//}
 			//else{
-			
+				//this->location = location;
 			//}
 			//if (npc){
 
 			//}
 			//else{
-
+				//this->npc = npc;
 			//}
 			//if (items){
 
 			//}
 			//else{
-			
+				//this->items = items;
 			//}
                 }
         private:
