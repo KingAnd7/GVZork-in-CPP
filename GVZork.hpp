@@ -130,7 +130,36 @@ class NPC{
 class LOCATIONS{
         public:
                 LOCATIONS(std::string map, std::string direction, LOCATIONS location, NPC npc, std::vector<ITEM> items){
+			//if (map){
+			
+			//}
+			//else{
+			
+			//}
+			//if (direction){
 
+			//}
+			//else{
+
+			//}
+			//if (location){
+
+			//}
+			//else{
+			
+			//}
+			//if (npc){
+
+			//}
+			//else{
+
+			//}
+			//if (items){
+
+			//}
+			//else{
+			
+			//}
                 }
         private:
 
