@@ -1,12 +1,23 @@
 #include "GVZork.hpp"
 
 int main(int argc, char const *argv[]){
-    try {
+//    ITEM TEST CODE
         ITEM rustyNail("Rusty Nail", "A rusty nail (I hope you've had a tetanus shot)", 0, 1, false);
         std::cout << rustyNail << std::endl;
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-    }
+
+//      NPC TEST CODE
+        NPC wizard("Merlin", "An old and wise wizard with a long white beard", {}, false);
+        wizard.addMessage("Greetings, young adventurer!");
+        wizard.addMessage("Beware of the dragon in the northern mountains.");
+        wizard.addMessage("Have you found the ancient spell book yet?");
+        wizard.addMessage("The stars are aligned for great magic tonight.");
+        std::cout << "NPC Name: " << wizard << std::endl;
+        std::cout << "Description: " << wizard.getDescription() << std::endl;
+        
+        for (size_t i = 0; i < 10; i++)
+        {
+            std::cout << "Wizard says: \"" << wizard.getMessage() << "\"" << std::endl;
+        }
 
     return 0;
 } 
