@@ -84,7 +84,7 @@ class ITEM{
 
 class NPC{
     public:
-        NPC(std::string name, std::string description, std::vector<ITEM> inventory, bool gobbo){
+        NPC(std::string name, std::string description, std::vector<std::string> messages, bool gobbo){
             if (name.empty()){
                 throw std::runtime_error("Name can not be Null");
             }
@@ -97,7 +97,7 @@ class NPC{
             else{
                 this->description = description;
             }
-            if (gobbo != true || gobbo != false){
+            if (gobbo != true && gobbo != false){
                 throw std::runtime_error("true or false expected");
             }
             else{
@@ -118,12 +118,30 @@ class NPC{
         void setDescription(std::string newValue){
             description = newValue;
         }
+        void addMessage(std::string newValue){
+            messages.push_back(newValue);
+        }
+
+        std::string getMessage() {
+            if (messages.empty()){
+                return "No messages available";
+            }
+
+            std::string currentMessage = messages[message_count];
+            message_count = (message_count + 1) % messages.size();
+            return currentMessage;
+        }
+
+        friend std::ostream& operator<<(std::ostream& os, const NPC& i){
+            os << i.name;
+            return os;
+        }
 
     private:
     std::string name;
     std::string description;
     int message_count;
-    std::vector<ITEM> inventory;
+    std::vector<std::string> messages;
     bool gobbo;
 };
 
