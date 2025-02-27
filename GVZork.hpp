@@ -183,4 +183,21 @@ class LOCATIONS{
 
 };
 
+class GAME{
+    public:
+        void create_world() {
+// Everything needs to go in here ITEMS, NPCS, and LOCATIONS
+        }
+
+        void show_help(std::vector<std::string>){
+            printf("Help Commands: ");
+        };
+
+    private:
+        bool gameInProgress = true;
+        int caloriesNeded =  500;
+        int weightInBackpack = 0;
+
+};
+
 #endif
