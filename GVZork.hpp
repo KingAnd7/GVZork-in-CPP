@@ -189,14 +189,47 @@ class GAME{
 // Everything needs to go in here ITEMS, NPCS, and LOCATIONS
         }
 
-        void show_help(std::vector<std::string>){
+        void showHelp(std::vector<std::string>){
             printf("Help Commands: ");
-        };
+        }
 
+        void talk(std::vector<std::string> target){
+            
+        }
+
+        void meet(std::vector<std::string> target) {
+
+        }
+
+        void take(std::vector<std::string> target) {
+
+        }
+
+        void give(std::vector<std::string> target){
+
+        }
+
+        void go(std::vector<std::string> target){
+
+        }
+
+        void show_items(std::vector<std::string> target){
+
+        }
+
+        void look(std::vector<std::string> target){
+
+        }
+
+        void quit(std::vector<std::string> target){
+            gameInProgress = false;
+            throw std::runtime_error("You have quit the game");
+        }
     private:
         bool gameInProgress = true;
         int caloriesNeded =  500;
         int weightInBackpack = 0;
+        int elfCalories = 500;
 
 };
 
