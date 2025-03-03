@@ -190,22 +190,51 @@ class GAME{
         }
 
         void showHelp(std::vector<std::string>){
-            printf("Help Commands: ");
+            printf("Help Commands:\n"
+                "talk - talk to the NPC at your current location \n"
+                "meet, take, give, go, show_items, look, quit");
         }
 
         void talk(std::vector<std::string> target){
+            if( target.empty()){
+                std::cout << "There is no one here to talk to";
+            }
+
+            for (auto npc : currentLocation->getNPCs()){
+                if (npc->getName() == target){
+                    std::cout << npc->getName() << " says: " << npc->getMessage() << "\n";
+                }
+            }
             
         }
 
         void meet(std::vector<std::string> target) {
+            if( target.empty()){
+                std::cout << "There is no one here";
+            }
 
+            for (auto npc : currentLocation->getNPCs()){
+                if (npc->getName() == target){
+                    std::cout << "You meet " << npc->getName() << "\n";
+                }
+            }
+            
         }
 
         void take(std::vector<std::string> target) {
+            if(target.empty()){
+                std::cout << "There is nothing to take \n";
+            }
 
         }
 
         void give(std::vector<std::string> target){
+            if(inventory.empty()){
+                std::cout << "There is nothing in your inventory to give \n";
+            }
+            if(target.empty()){
+                std::cout << "Please retype the command with the item you would like to give \n";
+            }
 
         }
 
@@ -228,8 +257,10 @@ class GAME{
     private:
         bool gameInProgress = true;
         int caloriesNeded =  500;
-        int weightInBackpack = 0;
+        int currentWeight = 0;
         int elfCalories = 500;
+        LOCATIONS* currentLocation;
+        std::vector<ITEM*> inventory;
 
 };
 
