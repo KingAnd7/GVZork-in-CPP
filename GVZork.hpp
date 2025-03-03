@@ -147,40 +147,44 @@ class NPC{
 
 class LOCATIONS{
         public:
-                LOCATIONS(std::map<std::string, std::string>, std::string direction, LOCATIONS location, NPC npc, std::vector<ITEM> items){
-		//if (map){
+                LOCATIONS(std::map<std::string, std::string> map, std::string direction, LOCATIONS location, NPC npc, std::vector<ITEM> items){
+		if (map not std::map<std::string, LOCATIONS location>){
 			
-			//}
-			//else{
-				//this->map = map;	
-			//}
-			//if (direction){
+			}
+			else{
+				this->map = map;	
+			}
+			if (direction){
 
-			//}
-			//else{
-				//this->direction = direction;
-			//}
-			//if (location){
+			}
+			else{
+				this->direction = direction;
+			}
+			if (location){
 			
-			//}
-			//else{
-				//this->location = location;
-			//}
-			//if (npc){
+			}
+			else{
+				this->location = location;
+			}
+			if (npc){
 
-			//}
-			//else{
-				//this->npc = npc;
-			//}
-			//if (items){
+			}
+			else{
+				this->npc = npc;
+			}
+			if (items){
 
-			//}
-			//else{
+			}
+			else{
 				//this->items = items;
-			//}
+			}
                 }
         private:
-
+		std::map map;
+		std::string direction;
+		LOCATIONS location;
+		NPC npc;
+		std::vector<ITEM> items;
 };
 
 class GAME{
