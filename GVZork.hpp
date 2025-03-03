@@ -147,37 +147,37 @@ class NPC{
 
 class LOCATIONS{
         public:
-                LOCATIONS(std::map<std::string, std::string> map, std::string direction, LOCATIONS location, NPC npc, std::vector<ITEM> items){
-		if (map not std::map<std::string, LOCATIONS location>){
-			
-			}
-			else{
-				this->map = map;	
-			}
-			if (direction){
-
-			}
-			else{
-				this->direction = direction;
-			}
-			if (location){
-			
-			}
-			else{
-				this->location = location;
-			}
-			if (npc){
-
-			}
-			else{
-				this->npc = npc;
-			}
-			if (items){
-
-			}
-			else{
-				//this->items = items;
-			}
+                LOCATIONS(std::map<std::string, std::string> map, std::string direction, LOCATIONS map_location, NPC npc, std::vector<ITEM> items){
+			//if (map.empty()){
+			//	throw std::runtime_error("map cannot be empty");
+			//}
+			//else{
+			//	this->map = map;	
+			//}
+			//if (direction.empty()){
+			//	throw std::runtime_error("direction cannot be empty");
+			//}
+			//else{
+			//	this->direction = direction;
+			//}
+			//if (map_location not LOCATIONS){
+			//	throw std::runtime_error("location needs to be of tyep LOCATIONS");
+			//}
+			//else{
+			//	this->map_location = map_location;
+			//}
+			//if (npc is not NPC){
+			//	throw std::runtime_error("npc needs to be of type NPC");
+			//}
+			//else{
+			//	this->npc = npc;
+			//}
+			//if (items not std::vector){
+			//	throw std::runtime_error("items needs to be of type vector");
+			//}
+			//else{
+			//	this->items = items;
+			//}
                 }
         private:
 		std::map map;
