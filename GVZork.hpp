@@ -147,8 +147,8 @@ class NPC{
 
 class LOCATIONS{
         public:
-                LOCATIONS(std::string map, std::string direction, LOCATIONS location, NPC npc, std::vector<ITEM> items){
-			//if (map){
+                LOCATIONS(std::map<std::string, std::string>, std::string direction, LOCATIONS location, NPC npc, std::vector<ITEM> items){
+		//if (map){
 			
 			//}
 			//else{
