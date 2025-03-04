@@ -18,6 +18,17 @@ int main(int argc, char const *argv[]){
         {
             std::cout << "Wizard says: \"" << wizard.getMessage() << "\"" << std::endl;
         }
-
+	
+	NPC goblin("Fartbuckle", "A goblin companion who's yet to find his purpose", {}, true);
+	goblin.addMessage("Hello adventurer.");
+	goblin.addMessage("Fartbuckle would like to come with adventurer.");
+	goblin.addMessage("Bring Fartbuckle lost equipment.");
+	goblin.addMessage("(something indecernable in goblinspeech)");
+	std::cout << "NPC Name " << goblin << std::endl;
+	std::cout << "description: " << goblin.getDescription() << std::endl;
+	for (size_t i = 0; i < 10; i++)
+	{
+		std::cout << goblin << " says: \"" goblin.getMessage() << "\"" << std::endl;
+	}
     return 0;
 } 

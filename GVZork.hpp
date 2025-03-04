@@ -122,7 +122,7 @@ class NPC{
             messages.push_back(newValue);
         }
 
-        std::string getMessage() {
+	std::string getMessage() {
             if (messages.empty()){
                 return "No messages available";
             }
@@ -147,44 +147,39 @@ class NPC{
 
 class LOCATIONS{
         public:
-                LOCATIONS(std::map<std::string, std::string> map, std::string direction, LOCATIONS map_location, NPC npc, std::vector<ITEM> items){
-			//if (map.empty()){
-			//	throw std::runtime_error("map cannot be empty");
-			//}
-			//else{
-			//	this->map = map;	
-			//}
-			//if (direction.empty()){
-			//	throw std::runtime_error("direction cannot be empty");
-			//}
-			//else{
-			//	this->direction = direction;
-			//}
-			//if (map_location not LOCATIONS){
-			//	throw std::runtime_error("location needs to be of tyep LOCATIONS");
-			//}
-			//else{
-			//	this->map_location = map_location;
-			//}
-			//if (npc is not NPC){
-			//	throw std::runtime_error("npc needs to be of type NPC");
-			//}
-			//else{
-			//	this->npc = npc;
-			//}
-			//if (items not std::vector){
-			//	throw std::runtime_error("items needs to be of type vector");
-			//}
-			//else{
-			//	this->items = items;
-			//}
-                }
+                LOCATIONS(std::string name, std::string description, bool visited, std::map<std::string, LOCATIONS> neighbors, std::vector<NPC> location_npcs, std::vector<ITEM> location_items){
+			if (name.empty()){
+				throw std::runtime_error("Name cannot be empty");
+			}else{
+				this->name = name;
+			if (description.empty()){
+				throw std::runtime_error("Description cannot be empty");
+			}else{
+				this->description = description;
+			}
+		}
+		//void add_location(std::string direction, LOCATIONS location){
+		//awawa
+		//}
+
+		void add_item(ITEM item){
+			location_items.push_back(item);
+		}
+		void add_npc(NPC npc){
+			location_npcs.push_back(npc);
+		}
+		void set_visited(){
+			if (visited == false){
+				visited = true;
+			}
+		}		
         private:
-		std::map map;
-		std::string direction;
-		LOCATIONS location;
-		NPC npc;
-		std::vector<ITEM> items;
+		std::string name;
+		std::string description;
+		bool visited;
+		std::map<std::string, LOCATIONS> neighbors;
+		std::vector<NPC> location_npcs;
+		std::vector<ITEM> location_items;
 };
 
 class GAME{
