@@ -152,15 +152,15 @@ class LOCATIONS{
 			if (name.empty()){
 				throw std::runtime_error("Name cannot be empty");
 			}else{
-				this->name = name;
+				this -> name = name;
 			if (description.empty()){
 				throw std::runtime_error("Description cannot be empty");
 			}else{
-				this->description = description;
+				this -> description = description;
 			}
 		}
 		//void add_location(std::string direction, LOCATIONS location){
-		//awawa
+		//addinglocationsinsides
 		//}
 
 		void add_item(ITEM item){

@@ -30,5 +30,7 @@ int main(int argc, char const *argv[]){
 	{
 		std::cout << goblin << " says: \"" goblin.getMessage() << "\"" << std::endl;
 	}
+
     return 0;
-} 
+};
+};
