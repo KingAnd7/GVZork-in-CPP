@@ -174,6 +174,9 @@ class LOCATIONS{
 				visited = true;
 			}
 		}		
+        std::vector<NPC> getNPC() const{
+            return location_npcs;
+        }
         private:
 		std::string name;
 		std::string description;
@@ -200,7 +203,7 @@ class GAME{
                 std::cout << "There is no one here to talk to";
             }
 
-            for (auto npc : currentLocation->getNPCs()){
+            for (auto npc : currentLocation->getNPC()){
                 if (npc->getName() == target){
                     std::cout << npc->getName() << " says: " << npc->getMessage() << "\n";
                 }
@@ -213,7 +216,7 @@ class GAME{
                 std::cout << "There is no one here";
             }
 
-            for (auto npc : currentLocation->getNPCs()){
+            for (auto npc : currentLocation->getNPC()){
                 if (npc->getName() == target){
                     std::cout << "You meet " << npc->getName() << "\n";
                 }
@@ -235,6 +238,7 @@ class GAME{
             if(target.empty()){
                 std::cout << "Please retype the command with the item you would like to give \n";
             }
+            if()
 
         }
 
