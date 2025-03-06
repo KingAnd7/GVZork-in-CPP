@@ -7,7 +7,7 @@ Game class
 needed amounts:
 8 connected locations (Makinaw, Manitou, padnos, henry, holt hook, kindshi, ltt, arboretum)
 10 items (cookie, cake, cake (lie), goblin morningstar, ration, goblin armor, goblin cookie, lasagna, goblin shield, potion)
-5 npc's (gobbo, elf, potion seller, ranger, cleric)
+5 npc/'s (gobbo, elf, potion seller, ranger, cleric)
 
 Makinaw
 N:None

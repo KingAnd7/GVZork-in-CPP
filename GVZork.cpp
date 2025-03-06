@@ -66,7 +66,7 @@ int main(int argc, char const *argv[]){
 	std::cout << "description: " << goblin.getDescription() << std::endl;
 	for (size_t i = 0; i < 10; i++)
 	{
-		std::cout << goblin << " says: \"" goblin.getMessage() << "\"" << std::endl;
+		std::cout << goblin << " says: \"" << goblin.getMessage() << "\"" << std::endl;
 	}
 
 	//elf test code
@@ -79,7 +79,7 @@ int main(int argc, char const *argv[]){
         std::cout << "description: " << elf.getDescription() << std::endl;
         for (size_t i = 0; i < 10; i++)
         {
-                std::cout << elf << " says: \"" elf.getMessage() << "\"" << std::endl;
+                std::cout << elf << " says: \"" << elf.getMessage() << "\"" << std::endl;
         }
 	
 	//ranger test code
@@ -89,5 +89,4 @@ int main(int argc, char const *argv[]){
 	//cleric test code
 	NPC cleric("Lyco", "a werewolf healer who searches for a cure to their own affliction", {}, false);
     return 0;
-};
 };

@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <vector>
 #include <map>
+#include <functional>
 
 class ITEM{
     public:
@@ -153,30 +154,38 @@ class LOCATIONS{
 				throw std::runtime_error("Name cannot be empty");
 			}else{
 				this -> name = name;
+            }
 			if (description.empty()){
 				throw std::runtime_error("Description cannot be empty");
 			}else{
 				this -> description = description;
 			}
-		}
-		//void add_location(std::string direction, LOCATIONS location){
-		//addinglocationsinsides
-		//}
+		    }
+            //void add_location(std::string direction, LOCATIONS location){
+            //addinglocationsinsides
+            //}
 
-		void add_item(ITEM item){
-			location_items.push_back(item);
-		}
-		void add_npc(NPC npc){
-			location_npcs.push_back(npc);
-		}
-		void set_visited(){
-			if (visited == false){
-				visited = true;
-			}
-		}		
-        std::vector<NPC> getNPC() const{
-            return location_npcs;
-        }
+            void add_item(ITEM item){
+                location_items.push_back(item);
+            }
+            std::vector<ITEM> getItem() const{
+                return location_items;
+            }
+            void add_npc(NPC npc){
+                location_npcs.push_back(npc);
+            }            
+            std::vector<NPC> getNPC() const{
+                return location_npcs;
+            }
+            void set_visited(){
+                if (visited == false){
+                    visited = true;
+                }
+            }		
+            std::string getName() const{
+                return name;
+            }
+
         private:
 		std::string name;
 		std::string description;
@@ -188,27 +197,38 @@ class LOCATIONS{
 
 class GAME{
     public:
+    std::map<std::string, std::function<void(std::vector<std::string>)>> setup_commands() {
+        std::map<std::string, std::function<void(std::vector<std::string>)>> cmds;
+
+    }
+
         void create_world() {
 // Everything needs to go in here ITEMS, NPCS, and LOCATIONS
         }
 
         void showHelp(std::vector<std::string>){
-            printf("Help Commands:\n"
+            printf("Help Commands: \n"
+                "help or ? - show this help message \n"
                 "talk - talk to the NPC at your current location \n"
-                "meet, take, give, go, show_items, look, quit");
+                "meet - meet the NPC at your current location \n"
+                "take - take the item at your current location \n"
+                "give - give your food to the elf \n"
+                "go - use \"north\", \"east\", \"south\", or \"west\" to move to a new location\n"
+                "items - shows the current items in your inventory \n"
+                "look - shows the current location you are in\n"
+                "quit - quit the game \n");
         }
 
         void talk(std::vector<std::string> target){
-            if( target.empty()){
+            if(target.empty()){
                 std::cout << "There is no one here to talk to";
             }
 
             for (auto npc : currentLocation->getNPC()){
-                if (npc->getName() == target){
-                    std::cout << npc->getName() << " says: " << npc->getMessage() << "\n";
+                if (npc.getName() == target[0]){
+                    std::cout << npc.getName() << " says: " << npc.getMessage() << "\n";
                 }
             }
-            
         }
 
         void meet(std::vector<std::string> target) {
@@ -217,18 +237,28 @@ class GAME{
             }
 
             for (auto npc : currentLocation->getNPC()){
-                if (npc->getName() == target){
-                    std::cout << "You meet " << npc->getName() << "\n";
+                if (npc.getName() == target[0]){
+                    std::cout << "You meet " << npc.getName() << "\n";
                 }
             }
-            
         }
 
         void take(std::vector<std::string> target) {
             if(target.empty()){
                 std::cout << "There is nothing to take \n";
             }
+            // Need to fix this
+            if (currentWeight >= 30.0 || currentWeight + target.getWeight() >= 30.0){
+                std::cout << "You are carrying too much weight \n";
+            }
 
+            for (auto item : currentLocation->getItem()){
+                if (item.getName() == target[0]){
+                    inventory.push_back(&item);
+                    currentWeight += item.getWeight();
+                    std::cout << "You have taken " << item.getName() << "\n";
+                }
+            }
         }
 
         void give(std::vector<std::string> target){
@@ -238,8 +268,13 @@ class GAME{
             if(target.empty()){
                 std::cout << "Please retype the command with the item you would like to give \n";
             }
-            if()
 
+            for (auto item : inventory){
+                if (item->getName() == target[0]){
+                    
+                }
+            }
+                    
         }
 
         void go(std::vector<std::string> target){
@@ -247,11 +282,19 @@ class GAME{
         }
 
         void show_items(std::vector<std::string> target){
+            if (inventory.empty()){
+                std::cout << "There is nothing in your inventory \n";
+            }
+            std::cout << "Inventory: \n";
+            for (auto item : inventory){
+                std::cout << item << "\n";
+            }
+            std::cout << currentWeight << "/30.0 lbs \n"; 
 
         }
 
         void look(std::vector<std::string> target){
-
+            std::cout << currentLocation->getName() << "\n";
         }
 
         void quit(std::vector<std::string> target){
@@ -261,7 +304,7 @@ class GAME{
     private:
         bool gameInProgress = true;
         int caloriesNeded =  500;
-        int currentWeight = 0;
+        float currentWeight = 0;
         int elfCalories = 500;
         LOCATIONS* currentLocation;
         std::vector<ITEM*> inventory;
