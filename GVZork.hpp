@@ -171,6 +171,17 @@ class LOCATIONS{
             std::vector<ITEM> getItem() const{
                 return location_items;
             }
+            ITEM* removeItem(const std::string& itemName) {
+                for (auto it = location_items.begin(); it != location_items.end(); ++it) {
+                    if (it->getName() == itemName) {
+                        ITEM* item = &(*it);
+                        location_items.erase(it);
+                        return item;
+                    }
+                }
+                return nullptr;
+            }
+
             void add_npc(NPC npc){
                 location_npcs.push_back(npc);
             }            
@@ -197,9 +208,24 @@ class LOCATIONS{
 
 class GAME{
     public:
-    std::map<std::string, std::function<void(std::vector<std::string>)>> setup_commands() {
-        std::map<std::string, std::function<void(std::vector<std::string>)>> cmds;
+    std::map<std::string, std::function<void(std::vector<std::string>)>> setup_commands() {std::map<std::string, std::function<void(std::vector<std::string>)>> cmds;
 
+        cmds["help"] = [this](std::vector<std::string> args) { showHelp(args); };
+        cmds["?"] = [this](std::vector<std::string> args) { showHelp(args); };
+        cmds["talk"] = [this](std::vector<std::string> args) { talk(args); };
+        cmds["go"] = [this](std::vector<std::string> args) { go(args); };
+        cmds["move"] = [this](std::vector<std::string> args) { go(args); };
+        cmds["look"] = [this](std::vector<std::string> args) { look(args); };
+        cmds["take"] = [this](std::vector<std::string> args) { take(args); };
+        cmds["get"] = [this](std::vector<std::string> args) { take(args); };
+        cmds["give"] = [this](std::vector<std::string> args) { give(args); };
+        cmds["inventory"] = [this](std::vector<std::string> args) { show_items(args); };
+        cmds["items"] = [this](std::vector<std::string> args) { show_items(args); };
+        cmds["meet"] = [this](std::vector<std::string> args) { meet(args); };
+        cmds["quit"] = [this](std::vector<std::string> args) { quit(args); };
+        cmds["exit"] = [this](std::vector<std::string> args) { quit(args); };
+        
+        return cmds;
     }
 
         void create_world() {
@@ -207,16 +233,16 @@ class GAME{
         }
 
         void showHelp(std::vector<std::string>){
-            printf("Help Commands: \n"
-                "help or ? - show this help message \n"
-                "talk - talk to the NPC at your current location \n"
-                "meet - meet the NPC at your current location \n"
-                "take - take the item at your current location \n"
-                "give - give your food to the elf \n"
-                "go - use \"north\", \"east\", \"south\", or \"west\" to move to a new location\n"
-                "items - shows the current items in your inventory \n"
-                "look - shows the current location you are in\n"
-                "quit - quit the game \n");
+            std::cout << "Help Commands: \n" <<
+                "help or ? - show this help message \n" <<
+                "talk - talk to the NPC at your current location \n" <<
+                "meet - meet the NPC at your current location \n" <<
+                "take - take the item at your current location \n" <<
+                "give - give your food to the elf \n" <<
+                "go - use \"north\", \"east\", \"south\", or \"west\" to move to a new location\n" <<
+                "items - shows the current items in your inventory \n" <<
+                "look - shows the current location you are in\n" <<
+                "quit - quit the game \n";
         }
 
         void talk(std::vector<std::string> target){
@@ -247,8 +273,12 @@ class GAME{
             if(target.empty()){
                 std::cout << "There is nothing to take \n";
             }
+            
+            std::string itemName = target[0];
+            ITEM* item = currentLocation->removeItem(itemName);
+            
             // Need to fix this
-            if (currentWeight >= 30.0 || currentWeight + target.getWeight() >= 30.0){
+            if (currentWeight >= 30.0 || currentWeight + item->getWeight() >= 30.0){
                 std::cout << "You are carrying too much weight \n";
             }
 
