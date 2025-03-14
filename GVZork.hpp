@@ -149,7 +149,7 @@ class NPC{
 
 class LOCATIONS{
         public:
-                LOCATIONS(std::string name, std::string description, bool visited, std::map<std::string, LOCATIONS> neighbors, std::vector<NPC> location_npcs, std::vector<ITEM> location_items){
+                LOCATIONS(std::string name, std::string description, bool visited, std::map<std::string, std::reference_wrapper<LOCATIONS>> neighbors, std::vector<std::reference_wrapper<NPC>> location_npcs, std::vector<std::reference_wrapper<ITEM>> location_items){
 			if (name.empty()){
 				throw std::runtime_error("Name cannot be empty");
 			}else{
@@ -165,10 +165,10 @@ class LOCATIONS{
             //addinglocationsinsides
             //}
 
-            void add_item(ITEM item){
+            void add_item(std::reference_wrapper<ITEM> item){
                 location_items.push_back(item);
             }
-            std::vector<ITEM> getItem() const{
+            std::vector<std::reference_wrapper<ITEM>> getItem() const{
                 return location_items;
             }
             ITEM* removeItem(const std::string& itemName) {
@@ -182,10 +182,10 @@ class LOCATIONS{
                 return nullptr;
             }
 
-            void add_npc(NPC npc){
+            void add_npc(std::reference_wrapper<NPC> npc){
                 location_npcs.push_back(npc);
             }            
-            std::vector<NPC> getNPC() const{
+            std::vector<std::reference_wrapper<NPC>> getNPC() const{
                 return location_npcs;
             }
             void set_visited(){
@@ -201,9 +201,9 @@ class LOCATIONS{
 		std::string name;
 		std::string description;
 		bool visited;
-		std::map<std::string, LOCATIONS> neighbors;
-		std::vector<NPC> location_npcs;
-		std::vector<ITEM> location_items;
+		std::map<std::string, std::reference_wrapper<LOCATIONS>`> neighbors;
+		std::vector<std::reference_wrapper<NPC>> location_npcs;
+		std::vector<std::reference_wrapper<ITEM>> location_items;
 };
 
 class GAME{
@@ -308,7 +308,15 @@ class GAME{
         }
 
         void go(std::vector<std::string> target){
+		if (target == "East" or target == "east"){
+		
+		} else if {
 
+		} else if {
+
+		} else if {
+		
+		}	
         }
 
         void show_items(std::vector<std::string> target){
@@ -323,21 +331,24 @@ class GAME{
 
         }
 
+	//good
         void look(std::vector<std::string> target){
             std::cout << currentLocation->getName() << "\n";
         }
 
+	//good
         void quit(std::vector<std::string> target){
             gameInProgress = false;
             throw std::runtime_error("You have quit the game");
         }
+
     private:
         bool gameInProgress = true;
         int caloriesNeded =  500;
         float currentWeight = 0;
-        int elfCalories = 500;
-        LOCATIONS* currentLocation;
-        std::vector<ITEM*> inventory;
+        int elfCalories = 0;
+        LOCATIONS currentLocation;
+        std::vector<std::reference_wrapper<ITEM>> inventory;
 
 };
 
