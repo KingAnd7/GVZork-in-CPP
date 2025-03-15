@@ -171,16 +171,19 @@ class LOCATIONS{
             std::vector<std::reference_wrapper<ITEM>> getItem() const{
                 return location_items;
             }
-            ITEM* removeItem(const std::string& itemName) {
+            ITEM removeItem(const std::string& itemName) {
                 for (auto it = location_items.begin(); it != location_items.end(); ++it) {
                     if (it.getName() == itemName) {
-                        item = it;          //<-- What does this do?
+                        item = it.get();          //<-- What does this do?
                         location_items.erase(it);
                         return item;
                     }
                 }
                 return nullptr;
             }
+	    std::map<std::string, std::reference_wrapper<LOCATIONS> > getneighbors(){
+		    return neighbors;
+	    }
 
             void add_npc(std::reference_wrapper<NPC> npc){
                 location_npcs.push_back(npc);
@@ -277,7 +280,7 @@ class GAME{
             }
             
             std::string itemName = target[0];
-            item = currentLocation.removeItem(itemName); //why is there equals here?
+            currentLocation.removeItem(itemName); //why is there equals here?
             
             // Need to fix weight cap
             if (currentWeight >= 30.0 || currentWeight + item.getWeight() >= 30.0){
@@ -285,7 +288,7 @@ class GAME{
             }
 
             for (auto item : currentLocation.getItem()){
-                if (item.getName() == target[0]){
+                if (item.get().getName() == target[0]){
                     inventory.push_back(item);
                     currentWeight += item.get().getWeight();
                     std::cout << "You have taken " << item.get().getName() << "\n";
@@ -302,7 +305,7 @@ class GAME{
             }
 
             for (auto item : inventory){
-                if (item.getName() == target[0]){
+                if (item.get().getName() == target[0]){
                     
                 }
             }
@@ -311,9 +314,10 @@ class GAME{
 
         //done
 	void go(std::vector<std::string> target){
-		if (currentLocation.neighbors.contains(target)){
-			currentLocation.set_visited(currentLocation);
-			currentLocation = currentLocation.neighbors[target];
+		if (currentLocation.getneighbors().contains(target)){
+			currentLocation.set_visited();
+			
+			currentLocation = currentLocation.getneighbors()[target];
 		} else {
 			std::cout << "That is not a valid location.\n";
 		};
