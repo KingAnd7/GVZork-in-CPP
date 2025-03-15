@@ -173,8 +173,8 @@ class LOCATIONS{
             }
             ITEM* removeItem(const std::string& itemName) {
                 for (auto it = location_items.begin(); it != location_items.end(); ++it) {
-                    if (it->getName() == itemName) {
-                        ITEM* item = &(*it);
+                    if (it.getName() == itemName) {
+                        item = it;          //<-- What does this do?
                         location_items.erase(it);
                         return item;
                     }
@@ -201,7 +201,7 @@ class LOCATIONS{
 		std::string name;
 		std::string description;
 		bool visited;
-		std::map<std::string, std::reference_wrapper<LOCATIONS>`> neighbors;
+		std::map<std::string, std::reference_wrapper<LOCATIONS>> neighbors;
 		std::vector<std::reference_wrapper<NPC>> location_npcs;
 		std::vector<std::reference_wrapper<ITEM>> location_items;
 };
@@ -251,7 +251,7 @@ class GAME{
                 std::cout << "There is no one here to talk to";
             }
 
-            for (auto npc : currentLocation->getNPC()){
+            for (auto npc : currentLocation.getNPC()){
                 if (npc.getName() == target[0]){
                     std::cout << npc.getName() << " says: " << npc.getMessage() << "\n";
                 }
@@ -264,7 +264,7 @@ class GAME{
                 std::cout << "There is no one here";
             }
 
-            for (auto npc : currentLocation->getNPC()){
+            for (auto npc : currentLocation.getNPC()){
                 if (npc.getName() == target[0]){
                     std::cout << "You meet " << npc.getName() << "\n";
                 }
@@ -277,16 +277,16 @@ class GAME{
             }
             
             std::string itemName = target[0];
-            ITEM* item = currentLocation->removeItem(itemName);
+            item = currentLocation.removeItem(itemName); //why is there equals here?
             
             // Need to fix weight cap
-            if (currentWeight >= 30.0 || currentWeight + item->getWeight() >= 30.0){
+            if (currentWeight >= 30.0 || currentWeight + item.getWeight() >= 30.0){
                 std::cout << "You are carrying too much weight \n";
-          j  }
+            }
 
-            for (auto item : currentLocation->getItem()){
+            for (auto item : currentLocation.getItem()){
                 if (item.getName() == target[0]){
-                    inventory.push_back(&item);
+                    inventory.push_back(item);
                     currentWeight += item.getWeight();
                     std::cout << "You have taken " << item.getName() << "\n";
                 }
@@ -302,7 +302,7 @@ class GAME{
             }
 
             for (auto item : inventory){
-                if (item->getName() == target[0]){
+                if (item.getName() == target[0]){
                     
                 }
             }
@@ -311,11 +311,11 @@ class GAME{
 
         //done
 	void go(std::vector<std::string> target){
-		if currentLocation.neighbors.contains(target){
-			currentLocation.setVisited(currentLocation);
+		if (currentLocation.neighbors.contains(target)){
+			currentLocation.set_visited(currentLocation);
 			currentLocation = currentLocation.neighbors[target];
 		} else {
-			std::cout < "That is not a valid location.\n";
+			std::cout << "That is not a valid location.\n";
 		};
 				
         };
@@ -334,7 +334,7 @@ class GAME{
 
 	//good
         void look(std::vector<std::string> target){
-            std::cout << currentLocation->getName() << "\n";
+            std::cout << currentLocation.getName() << "\n";
         }
 
 	//good
