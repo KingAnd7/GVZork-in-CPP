@@ -252,8 +252,8 @@ class GAME{
             }
 
             for (auto npc : currentLocation.getNPC()){
-                if (npc.getName() == target[0]){
-                    std::cout << npc.getName() << " says: " << npc.getMessage() << "\n";
+                if (npc.get().getName() == target[0]){
+                    std::cout << npc.get().getName() << " says: " << npc.get().getMessage() << "\n";
                 }
             }
         }
@@ -265,8 +265,8 @@ class GAME{
             }
 
             for (auto npc : currentLocation.getNPC()){
-                if (npc.getName() == target[0]){
-                    std::cout << "You meet " << npc.getName() << "\n";
+                if (npc.get().getName() == target[0]){
+                    std::cout << "You meet " << npc.get().getName() << "\n";
                 }
             }
         }
@@ -287,8 +287,8 @@ class GAME{
             for (auto item : currentLocation.getItem()){
                 if (item.getName() == target[0]){
                     inventory.push_back(item);
-                    currentWeight += item.getWeight();
-                    std::cout << "You have taken " << item.getName() << "\n";
+                    currentWeight += item.get().getWeight();
+                    std::cout << "You have taken " << item.get().getName() << "\n";
                 }
             }
         }
