@@ -244,7 +244,8 @@ class GAME{
                 "look - shows the current location you are in\n" <<
                 "quit - quit the game \n";
         }
-
+	
+	//should be good?
         void talk(std::vector<std::string> target){
             if(target.empty()){
                 std::cout << "There is no one here to talk to";
@@ -257,8 +258,9 @@ class GAME{
             }
         }
 
-        void meet(std::vector<std::string> target) {
-            if( target.empty()){
+        //should ALSO be good?
+	void meet(std::vector<std::string> target) {
+            if(target.empty()){
                 std::cout << "There is no one here";
             }
 
@@ -277,10 +279,10 @@ class GAME{
             std::string itemName = target[0];
             ITEM* item = currentLocation->removeItem(itemName);
             
-            // Need to fix this
+            // Need to fix weight cap
             if (currentWeight >= 30.0 || currentWeight + item->getWeight() >= 30.0){
                 std::cout << "You are carrying too much weight \n";
-            }
+          j  }
 
             for (auto item : currentLocation->getItem()){
                 if (item.getName() == target[0]){
@@ -307,17 +309,16 @@ class GAME{
                     
         }
 
-        void go(std::vector<std::string> target){
-		if (target == "East" or target == "east"){
-		
-		} else if {
-
-		} else if {
-
-		} else if {
-		
-		}	
-        }
+        //done
+	void go(std::vector<std::string> target){
+		if currentLocation.neighbors.contains(target){
+			currentLocation.setVisited(currentLocation);
+			currentLocation = currentLocation.neighbors[target];
+		} else {
+			std::cout < "That is not a valid location.\n";
+		};
+				
+        };
 
         void show_items(std::vector<std::string> target){
             if (inventory.empty()){
@@ -326,10 +327,10 @@ class GAME{
             std::cout << "Inventory: \n";
             for (auto item : inventory){
                 std::cout << item << "\n";
-            }
+            };
             std::cout << currentWeight << "/30.0 lbs \n"; 
 
-        }
+        };
 
 	//good
         void look(std::vector<std::string> target){
