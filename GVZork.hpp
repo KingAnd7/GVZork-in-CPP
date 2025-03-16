@@ -171,16 +171,15 @@ class LOCATIONS{
             std::vector<std::reference_wrapper<ITEM>> getItem() const{
                 return location_items;
             }
-            ITEM removeItem(const std::string& itemName) {
+	    std::reference_wrapper<ITEM> removeItem(std::string itemName) {
                 for (auto it = location_items.begin(); it != location_items.end(); ++it) {
-                    if (it.getName() == itemName) {
-                        item = it.get();          //<-- What does this do?
+                    if (it.get().getName() == itemName) {
                         location_items.erase(it);
                         return item;
                     }
                 }
-                return nullptr;
             }
+
 	    std::map<std::string, std::reference_wrapper<LOCATIONS> > getneighbors(){
 		    return neighbors;
 	    }
@@ -280,10 +279,10 @@ class GAME{
             }
             
             std::string itemName = target[0];
-            currentLocation.removeItem(itemName); //why is there equals here?
+            item = currentLocation.removeItem(itemName); //why is there equals here?
             
             // Need to fix weight cap
-            if (currentWeight >= 30.0 || currentWeight + item.getWeight() >= 30.0){
+            if (currentWeight >= 30.0 || currentWeight + item.get().getWeight() >= 30.0){
                 std::cout << "You are carrying too much weight \n";
             }
 
