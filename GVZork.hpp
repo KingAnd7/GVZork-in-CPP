@@ -171,13 +171,15 @@ class LOCATIONS{
             std::vector<std::reference_wrapper<ITEM>> getItem() const{
                 return location_items;
             };
-	    std::reference_wrapper<ITEM> removeItem(std::string itemName) {
-                for (auto it : location_items) {
-                    if (it.get().getName() == itemName) {
-			std::reference_wrapper item = it.get();
-		    	location_items.erase(it);
-                        return item;
-                    };
+	    ITEM removeItem(std::string itemName) {
+                int count = 0;
+		for (auto it : location_items) {
+			if (it.get().getName() == itemName) {
+				ITEM item = it.get();
+		    		location_items.erase(location_items.begin()+count);
+                        	return item;
+			};
+			count += 1;
                 };
             };
 
@@ -318,7 +320,6 @@ class GAME{
 
         	//cleric test code
         	NPC cleric("Lyco", "a werewolf healer who searches for a cure to their own affliction", {}, false);
-    		return 0;
         }
 
         void showHelp(std::vector<std::string>){
@@ -366,10 +367,10 @@ class GAME{
             }
             
             std::string itemName = target[0];
-	    std::reference_wrapper item = currentLocation.removeItem(itemName); //why is there equals here
+	    ITEM item = currentLocation.removeItem(itemName); //why is there equals here
             
             // Need to fix weight cap
-            if (currentWeight >= 30.0 || currentWeight + item.get().getWeight() >= 30.0){
+            if (currentWeight >= 30.0 || currentWeight + item.getWeight() >= 30.0){
                 std::cout << "You are carrying too much weight \n";
             }
 
