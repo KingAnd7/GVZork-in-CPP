@@ -10,6 +10,7 @@
 
 class ITEM{
     public:
+	ITEM(){};
         ITEM(std::string name, std::string description, int calorie, float weight, bool gobbo){
             if (name.empty()){
                 throw std::runtime_error("Name can not be Null");
@@ -86,6 +87,7 @@ class ITEM{
 
 class NPC{
     public:
+	NPC(){};
         NPC(std::string name, std::string description, std::vector<std::string> messages, bool gobbo){
             if (name.empty()){
                 throw std::runtime_error("Name can not be Null");
@@ -149,6 +151,7 @@ class NPC{
 
 class LOCATIONS{
         public:
+		LOCATIONS(){};
                 LOCATIONS(std::string name, std::string description, bool visited, std::map<std::string, std::reference_wrapper<LOCATIONS>> neighbors, std::vector<std::reference_wrapper<NPC>> location_npcs, std::vector<std::reference_wrapper<ITEM>> location_items){
 			if (name.empty()){
 				throw std::runtime_error("Name cannot be empty");
@@ -200,7 +203,12 @@ class LOCATIONS{
             }		
             std::string getName() const{
                 return name;
-            }
+	    }
+
+	   	friend std::ostream& operator<<(std::ostream& os, const LOCATIONS& i){
+			os << i.name;
+			return os;
+		}
 
         private:
 		std::string name;
@@ -213,25 +221,26 @@ class LOCATIONS{
 
 class GAME{
     public:
-    std::map<std::string, std::function<void(std::vector<std::string>)>> setup_commands() {std::map<std::string, std::function<void(std::vector<std::string>)>> cmds;
+    	GAME(){};
+	std::map<std::string, std::function<void(std::vector<std::string>)>> setup_commands(std::map<std::string, std::function<void(std::vector<std::string>)>> cmds){
 
-        cmds["help"] = [this](std::vector<std::string> args) { showHelp(args); };
-        cmds["?"] = [this](std::vector<std::string> args) { showHelp(args); };
-        cmds["talk"] = [this](std::vector<std::string> args) { talk(args); };
-        cmds["go"] = [this](std::vector<std::string> args) { go(args); };
-        cmds["move"] = [this](std::vector<std::string> args) { go(args); };
-        cmds["look"] = [this](std::vector<std::string> args) { look(args); };
-        cmds["take"] = [this](std::vector<std::string> args) { take(args); };
-        cmds["get"] = [this](std::vector<std::string> args) { take(args); };
-        cmds["give"] = [this](std::vector<std::string> args) { give(args); };
-        cmds["inventory"] = [this](std::vector<std::string> args) { show_items(args); };
-        cmds["items"] = [this](std::vector<std::string> args) { show_items(args); };
-        cmds["meet"] = [this](std::vector<std::string> args) { meet(args); };
-        cmds["quit"] = [this](std::vector<std::string> args) { quit(args); };
-        cmds["exit"] = [this](std::vector<std::string> args) { quit(args); };
+        	cmds["help"] = [this](std::vector<std::string> args) { showHelp(args); };
+        	cmds["?"] = [this](std::vector<std::string> args) { showHelp(args); };
+        	cmds["talk"] = [this](std::vector<std::string> args) { talk(args); };
+        	cmds["go"] = [this](std::vector<std::string> args) { go(args); };
+        	cmds["move"] = [this](std::vector<std::string> args) { go(args); };
+        	cmds["look"] = [this](std::vector<std::string> args) { look(args); };
+        	cmds["take"] = [this](std::vector<std::string> args) { take(args); };
+        	cmds["get"] = [this](std::vector<std::string> args) { take(args); };
+        	cmds["give"] = [this](std::vector<std::string> args) { give(args); };
+        	cmds["inventory"] = [this](std::vector<std::string> args) { show_items(args); };
+        	cmds["items"] = [this](std::vector<std::string> args) { show_items(args); };
+        	cmds["meet"] = [this](std::vector<std::string> args) { meet(args); };
+        	cmds["quit"] = [this](std::vector<std::string> args) { quit(args); };
+        	cmds["exit"] = [this](std::vector<std::string> args) { quit(args); };
         
-        return cmds;
-    }
+        	return cmds;
+    	}
 
         void create_world() {
 		//    ITEM TEST CODE
@@ -401,10 +410,10 @@ class GAME{
 
         //done
 	void go(std::vector<std::string> target){
-		if (currentLocation.getneighbors().contains(target)){
+		if (currentLocation.getneighbors().contains(target[0])){
 			currentLocation.set_visited();
 			
-			currentLocation = currentLocation.getneighbors()[target];
+			currentLocation = currentLocation.getneighbors()[target[0]];
 		} else {
 			std::cout << "That is not a valid location.\n";
 		};

@@ -1,5 +1,6 @@
 #include "GVZork.hpp"
 
 int main(int argc, char const *argv[]){
-	GVZork create_world();	
+	GAME g;
+	g.create_world();	
 };
