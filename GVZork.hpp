@@ -1,3 +1,5 @@
+// made by Andrew Hills and Gerrit Mitchell
+
 #ifndef         __HPP__GVZork__
 #define         __HPP__GVZork__
 
