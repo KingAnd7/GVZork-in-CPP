@@ -43,7 +43,7 @@ class ITEM{
             }
             else{
                 this->gobbo = gobbo;
-            }
+	    }
 
         }
 
@@ -323,14 +323,86 @@ class GAME{
        		std::cout << "description: " << elf.getDescription() << std::endl;
        		for (size_t i = 0; i < 10; i++)
        		{
-              		std::cout << elf << " says: \"" << elf.getMessage() << "\"" << std::endl;
+         
+			std::cout << elf << " says: \"" << elf.getMessage() << "\"" << std::endl;
        		}
 
         	//ranger test code
 		NPC ranger("Arana", "A drider ranger who's hunting the madman who made the crystal.", {}, false);
+		ranger.addMessage("Hello there! My name is Arana!");
+                ranger.addMessage("You wouldn't happen to have any mice, would you?");
+        	ranger.addMessage("Or perhaps you've seen the man I'm hunting.");
+		ranger.addMessage("He has a very pointy hat.");
+		std::cout << "NPC Name " << ranger << std::endl;
+		std::cout << "description: " << ranger.getDescription() << std::endl;
+		for (size_t i = 0; i < 10; i++)
+		{
+			std::cout << ranger << " says: \"" << ranger.getMessage() << "\"" << std::endl;
+		}
 
-        	//cleric test code
+		//cleric test code
         	NPC cleric("Lyco", "a werewolf healer who searches for a cure to their own affliction", {}, false);
+		cleric.addMessage("");
+		cleric.addMessage("");
+		cleric.addMessage("");
+		cleric.addMessage("");
+		std::cout << "NPC Name " << cleric << std::endl;
+		std::cout << "description: " << cleric.getDescription() << std::endl;
+		for (size_t i = 0; i < 10; i++)
+		{
+			std::cout << cleric << " says: \"" << cleric.getMessage() << "\"" << std::endl;
+		}
+
+		//location creation
+		LOCATIONS Makinaw("Mackinaw", "The Home of the Computer Science Department", false);
+		Makinaw.add_npc(wizard);
+		Makinaw.add_item(cakelie);
+		Makinaw.add_item(morningstar);
+
+		LOCATIONS Manitou("Manitou", "No one ever knows what classes are truly held here, only that it has a computer lab", false);
+		Manitou.add_item(cookie);
+
+		LOCATIONS Holton_Hooker("Holton_Hooker", "Students live here despite there being classes", false);
+		Holton_Hooker.add_item(cake);
+		Holton_Hooker.add_item(ration);
+
+		LOCATIONS Padnos("Padnos", "Home of the science students", false);
+		Padnos.add_npc(goblin);
+		Padnos.add_item(armor);
+		
+		LOCATIONS Loutit("Loutit", "Lecture Halls that are connected to Henry", false);
+		Loutit.add_item(gcookie);
+		Loutit.add_item(potion);
+
+		LOCATIONS Henry("Henry", "Computer Labs that are connected to Loutit", false);
+		Henry.add_npc(ranger);
+		Loutit.add_item(lasagna);
+
+		LOCATIONS Kindshi("Kindshi", "Home to biology classes", false);
+		Kindshi.add_npc(cleric);
+		Kindshi.add_item(shield);
+		
+		LOCATIONS Arboretum("Arboretum", "The Woods where the Elf resides", false);
+		Arboretum.add_npc(elf);
+
+		Makinaw.add_location("South", Manitou);
+		Makinaw.add_location("East", Holton_Hooker);
+		Manitou.add_location("North", Makinaw);
+		Manitou.add_location("South", Padnos);
+		Manitou.add_location("West", Kindshi);
+		Holton_Hooker.add_location("South", Arboretum);
+		Holton_Hooker.add_location("West", Makinaw);
+		Padnos.add_location("North", Manitou);
+		Padnos.add_location("East", Arboretum);
+		Padnos.add_location("West", Loutit);
+		Loutit.add_location("North", Kindshi);
+		Loutit.add_location("South", Henry);
+		Loutit.add_location("East", Padnos);
+		Henry.add_location("North", Loutit);
+		Kindshi.add_location("South", Loutit);
+		Kindshi.add_location("East", Manitou);
+		Arboretum.add_location("North", Holton_Hooker);
+		Arboretum.add_location("West", Padnos);
         }
 
         void showHelp(std::vector<std::string>){
