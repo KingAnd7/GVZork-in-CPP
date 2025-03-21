@@ -154,7 +154,7 @@ class NPC{
 class LOCATIONS{
         public:
 		LOCATIONS(){};
-                LOCATIONS(std::string name, std::string description, bool visited, std::map<std::string, std::reference_wrapper<LOCATIONS>> neighbors, std::vector<std::reference_wrapper<NPC>> location_npcs, std::vector<std::reference_wrapper<ITEM>> location_items){
+                LOCATIONS(std::string name, std::string description, bool visited){
 			if (name.empty()){
 				throw std::runtime_error("Name cannot be empty");
 			}else{
@@ -166,9 +166,9 @@ class LOCATIONS{
 				this -> description = description;
 			}
 		    }
-            //void add_location(std::string direction, LOCATIONS location){
-            //addinglocationsinsides
-            //}
+            void add_location(std::string direction, std::reference_wrapper<LOCATIONS> location){
+		    neighbors[direction] = location;
+            }
 
             void add_item(std::reference_wrapper<ITEM> item){
                 location_items.push_back(item);
