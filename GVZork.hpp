@@ -207,10 +207,10 @@ class LOCATIONS{
                 return name;
 	    }
 
-	   	friend std::ostream& operator<<(std::ostream& os, const LOCATIONS& i){
-			os << i.name;
-			return os;
-		}
+	    friend std::ostream& operator<<(std::ostream& os, const LOCATIONS& i){
+		os << i.name;
+		return os;
+	    }
 
         private:
 		std::string name;
@@ -405,6 +405,7 @@ class GAME{
 		Arboretum.add_location("West", Padnos);
         }
 
+	//done
         void showHelp(std::vector<std::string>){
             std::cout << "Help Commands: \n" <<
                 "help or ? - show this help message \n" <<
@@ -418,7 +419,7 @@ class GAME{
                 "quit - quit the game \n";
         }
 	
-	//should be good?
+	//done
         void talk(std::vector<std::string> target){
             if(target.empty()){
                 std::cout << "There is no one here to talk to";
@@ -431,7 +432,7 @@ class GAME{
             }
         }
 
-        //should ALSO be good?
+        //done
 	void meet(std::vector<std::string> target) {
             if(target.empty()){
                 std::cout << "There is no one here";
@@ -443,7 +444,8 @@ class GAME{
                 }
             }
         }
-
+	
+	//done
         void take(std::vector<std::string> target) {
             if(target.empty()){
                 std::cout << "There is nothing to take \n";
@@ -476,7 +478,12 @@ class GAME{
 
             for (auto item : inventory){
                 if (item.get().getName() == target[0]){
-                    
+                    currentLocation.add_item(item);
+		    if (currentLocation.getName() == "Arboretum"){
+			caloriesNeded = caloriesNeded - item.get().getCalorie();
+		    }
+
+		    //currentLocation = randomLoctaion();
                 }
             }
                     
@@ -486,7 +493,6 @@ class GAME{
 	void go(std::vector<std::string> target){
 		if (currentLocation.getneighbors().contains(target[0])){
 			currentLocation.set_visited();
-			
 			currentLocation = currentLocation.getneighbors()[target[0]];
 		} else {
 			std::cout << "That is not a valid location.\n";
