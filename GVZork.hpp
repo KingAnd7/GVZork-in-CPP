@@ -230,6 +230,7 @@ class GAME{
         	cmds["?"] = [this](std::vector<std::string> args) { showHelp(args); };
         	cmds["talk"] = [this](std::vector<std::string> args) { talk(args); };
         	cmds["go"] = [this](std::vector<std::string> args) { go(args); };
+		cmds["teleport"] = [this](std::vector<std::string> args) { teleport(); };
         	cmds["move"] = [this](std::vector<std::string> args) { go(args); };
         	cmds["look"] = [this](std::vector<std::string> args) { look(args); };
         	cmds["take"] = [this](std::vector<std::string> args) { take(args); };
@@ -243,6 +244,10 @@ class GAME{
         
         	return cmds;
     	}
+
+	void addloclist(std::reference_wrapper<LOCATIONS> loc) {
+		locationlist.push_back(loc);
+	}
 
         void create_world() {
 		//    ITEM TEST CODE
@@ -299,6 +304,7 @@ class GAME{
         	{
             		std::cout << "Wizard says: \"" << wizard.getMessage() << "\"" << std::endl;
         	}
+		
 
         	//goblin test code
         	NPC goblin("Fartbuckle", "A goblin companion who's yet to find his purpose", {}, true);
@@ -387,24 +393,51 @@ class GAME{
 
 		Makinaw.add_location("South", Manitou);
 		Makinaw.add_location("East", Holton_Hooker);
+		addloclist(Makinaw);
+
 		Manitou.add_location("North", Makinaw);
 		Manitou.add_location("South", Padnos);
 		Manitou.add_location("West", Kindshi);
+		addloclist(Manitou);
+		
 		Holton_Hooker.add_location("South", Arboretum);
 		Holton_Hooker.add_location("West", Makinaw);
+		addloclist(Holton_Hooker);
+		
 		Padnos.add_location("North", Manitou);
 		Padnos.add_location("East", Arboretum);
 		Padnos.add_location("West", Loutit);
+		addloclist(Padnos);
+		
 		Loutit.add_location("North", Kindshi);
 		Loutit.add_location("South", Henry);
 		Loutit.add_location("East", Padnos);
+		addloclist(Loutit);
+		
 		Henry.add_location("North", Loutit);
+		addloclist(Henry);
+		
 		Kindshi.add_location("South", Loutit);
 		Kindshi.add_location("East", Manitou);
+		addloclist(Kindshi);
+
 		Arboretum.add_location("North", Holton_Hooker);
 		Arboretum.add_location("West", Padnos);
-        }
+        	addloclist(Arboretum);
+	}
 
+	// done
+	void randomloc(std::reference_wrapper<LOCATIONS> cantloc){
+		randomIndex = rand() % locationlist.size();
+		if (locationlist[randomIndex] != cantloc){
+			currentLocation = locationlist[randomIndex].get();
+			std::cout << "location updated!\n";
+		}
+		else{
+			randomloc(cantloc);
+		}
+	};
+	
 	//done
         void showHelp(std::vector<std::string>){
             std::cout << "Help Commands: \n" <<
@@ -482,8 +515,9 @@ class GAME{
 		    if (currentLocation.getName() == "Arboretum"){
 			caloriesNeded = caloriesNeded - item.get().getCalorie();
 		    }
-
-		    //currentLocation = randomLoctaion();
+		    //if (item.get().getCalorie() == 0){
+			    //currentLocation = ranloc.returnloc();
+		    //}
                 }
             }
                     
@@ -493,14 +527,18 @@ class GAME{
 	void go(std::vector<std::string> target){
 		if (currentLocation.getneighbors().contains(target[0])){
 			currentLocation.set_visited();
-			currentLocation = currentLocation.getneighbors()[target[0]];
+			currentLocation = currentLocation.getneighbors()[target[0]].get() ;
 		} else {
 			std::cout << "That is not a valid location.\n";
 		};
 				
         };
 
-        void show_items(std::vector<std::string> target){
+        void teleport(){
+		randomloc(currentLocation);
+	}
+	
+	void show_items(std::vector<std::string> target){
             if (inventory.empty()){
                 std::cout << "There is nothing in your inventory \n";
             }
@@ -529,6 +567,7 @@ class GAME{
         float currentWeight = 0;
         int elfCalories = 0;
         LOCATIONS currentLocation;
+	std::vector<std::reference_wrapper<LOCATIONS>> locationlist;
         std::vector<std::reference_wrapper<ITEM>> inventory;
 
 };
