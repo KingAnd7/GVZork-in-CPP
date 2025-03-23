@@ -597,6 +597,10 @@ class GAME{
             throw std::runtime_error("You have quit the game");
         }
 
+	bool progcheck(){
+		return gameInProgress;
+	}
+
     private:
         bool gameInProgress = true;
         int caloriesNeded =  500;
