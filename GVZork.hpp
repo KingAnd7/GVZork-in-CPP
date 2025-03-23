@@ -9,6 +9,7 @@
 #include <vector>
 #include <map>
 #include <functional>
+#include <random>
 
 class ITEM{
     public:
@@ -203,6 +204,10 @@ class LOCATIONS{
                     visited = true;
                 }
             }		
+	    bool getvisited(){
+		    return visited;
+	    }
+
             std::string getName() const{
                 return name;
 	    }
@@ -238,6 +243,7 @@ class GAME{
         	cmds["give"] = [this](std::vector<std::string> args) { give(args); };
         	cmds["inventory"] = [this](std::vector<std::string> args) { show_items(args); };
         	cmds["items"] = [this](std::vector<std::string> args) { show_items(args); };
+		cmds["see"] = [this](std::vector<std::string> args) { see(); };
         	cmds["meet"] = [this](std::vector<std::string> args) { meet(args); };
         	cmds["quit"] = [this](std::vector<std::string> args) { quit(args); };
         	cmds["exit"] = [this](std::vector<std::string> args) { quit(args); };
@@ -247,6 +253,7 @@ class GAME{
 
 	void addloclist(std::reference_wrapper<LOCATIONS> loc) {
 		locationlist.push_back(loc);
+		maxgenval = maxgenval + 1;
 	}
 
         void create_world() {
@@ -428,8 +435,11 @@ class GAME{
 
 	// done
 	void randomloc(std::reference_wrapper<LOCATIONS> cantloc){
-		randomIndex = rand() % locationlist.size();
-		if (locationlist[randomIndex] != cantloc){
+		std::random_device rd; // obtain a random number from hardware
+		std::mt19937 gen(rd()); // seed the generator
+		std::uniform_int_distribution<> distr(0, maxgenval); // define the range
+		int randomIndex = distr(gen);
+		if (locationlist[randomIndex].get().getName() != cantloc.get().getName()){
 			currentLocation = locationlist[randomIndex].get();
 			std::cout << "location updated!\n";
 		}
@@ -447,8 +457,10 @@ class GAME{
                 "take - take the item at your current location \n" <<
                 "give - give your food to the elf \n" <<
                 "go - use \"north\", \"east\", \"south\", or \"west\" to move to a new location\n" <<
-                "items - shows the current items in your inventory \n" <<
+                "teleport - teleports you to a random location\n" <<
+		"items - shows the current items in your inventory \n" <<
                 "look - shows the current location you are in\n" <<
+		"see - shows the names of locations you have visited" <<
                 "quit - quit the game \n";
         }
 	
@@ -515,9 +527,13 @@ class GAME{
 		    if (currentLocation.getName() == "Arboretum"){
 			caloriesNeded = caloriesNeded - item.get().getCalorie();
 		    }
-		    //if (item.get().getCalorie() == 0){
-			    //currentLocation = ranloc.returnloc();
-		    //}
+		    if (item.get().getCalorie() == 0){
+			if (currentLocation.getvisited() == false){
+				currentLocation.set_visited();
+				visited_list.push_back(currentLocation.getName());
+			}
+		    	randomloc(currentLocation);
+		    }
                 }
             }
                     
@@ -526,7 +542,10 @@ class GAME{
         //done
 	void go(std::vector<std::string> target){
 		if (currentLocation.getneighbors().contains(target[0])){
-			currentLocation.set_visited();
+			if (currentLocation.getvisited() == false){
+				currentLocation.set_visited();
+				visited_list.push_back(currentLocation.getName());
+			}
 			currentLocation = currentLocation.getneighbors()[target[0]].get() ;
 		} else {
 			std::cout << "That is not a valid location.\n";
@@ -535,6 +554,10 @@ class GAME{
         };
 
         void teleport(){
+		if (currentLocation.getvisited() == false){
+			currentLocation.set_visited();
+			visited_list.push_back(currentLocation.getName());
+		}
 		randomloc(currentLocation);
 	}
 	
@@ -549,6 +572,19 @@ class GAME{
             std::cout << currentWeight << "/30.0 lbs \n"; 
 
         };
+
+	void see(){
+		std::cout << "Here are the places you have visited:\n";
+		for (auto i : visited_list){
+			std::cout << i << "\n";
+		};
+		if (visited_list.size() == maxgenval){
+			std::cout << "You have visited every location!\n";
+		}
+		else {
+			std::cout << "You have not visited every location.\n";
+		};
+	};
 
 	//good
         void look(std::vector<std::string> target){
@@ -569,6 +605,8 @@ class GAME{
         LOCATIONS currentLocation;
 	std::vector<std::reference_wrapper<LOCATIONS>> locationlist;
         std::vector<std::reference_wrapper<ITEM>> inventory;
+	std::vector<std::string> visited_list;
+	int maxgenval = 0;
 
 };
 
