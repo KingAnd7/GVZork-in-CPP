@@ -168,7 +168,7 @@ class LOCATIONS{
 			}
 		    }
             void add_location(std::string direction, std::reference_wrapper<LOCATIONS> location){
-		    neighbors[direction] = location;
+		    neighbors[direction] = location.get();
             }
 
             void add_item(std::reference_wrapper<ITEM> item){
@@ -231,22 +231,22 @@ class GAME{
     	GAME(){};
 	std::map<std::string, std::function<void(std::vector<std::string>)>> setup_commands(std::map<std::string, std::function<void(std::vector<std::string>)>> cmds){
 
-        	cmds["help"] = [this](std::vector<std::string> args) { showHelp(args); };
-        	cmds["?"] = [this](std::vector<std::string> args) { showHelp(args); };
+        	cmds["help"] = [this](std::vector<std::string> args) { showHelp(); };
+        	cmds["?"] = [this](std::vector<std::string> args) { showHelp(); };
         	cmds["talk"] = [this](std::vector<std::string> args) { talk(args); };
         	cmds["go"] = [this](std::vector<std::string> args) { go(args); };
 		cmds["teleport"] = [this](std::vector<std::string> args) { teleport(); };
         	cmds["move"] = [this](std::vector<std::string> args) { go(args); };
-        	cmds["look"] = [this](std::vector<std::string> args) { look(args); };
+        	cmds["look"] = [this](std::vector<std::string> args) { look(); };
         	cmds["take"] = [this](std::vector<std::string> args) { take(args); };
         	cmds["get"] = [this](std::vector<std::string> args) { take(args); };
         	cmds["give"] = [this](std::vector<std::string> args) { give(args); };
-        	cmds["inventory"] = [this](std::vector<std::string> args) { show_items(args); };
-        	cmds["items"] = [this](std::vector<std::string> args) { show_items(args); };
+        	cmds["inventory"] = [this](std::vector<std::string> args) { show_items(); };
+        	cmds["items"] = [this](std::vector<std::string> args) { show_items(); };
 		cmds["see"] = [this](std::vector<std::string> args) { see(); };
         	cmds["meet"] = [this](std::vector<std::string> args) { meet(args); };
-        	cmds["quit"] = [this](std::vector<std::string> args) { quit(args); };
-        	cmds["exit"] = [this](std::vector<std::string> args) { quit(args); };
+        	cmds["quit"] = [this](std::vector<std::string> args) { quit(); };
+        	cmds["exit"] = [this](std::vector<std::string> args) { quit(); };
         
         	return cmds;
     	}
@@ -449,19 +449,19 @@ class GAME{
 	};
 	
 	//done
-        void showHelp(std::vector<std::string>){
+        void showHelp(){
             std::cout << "Help Commands: \n" <<
                 "help or ? - show this help message \n" <<
                 "talk - talk to the NPC at your current location \n" <<
                 "meet - meet the NPC at your current location \n" <<
                 "take - take the item at your current location \n" <<
                 "give - give your food to the elf \n" <<
-                "go - use \"north\", \"east\", \"south\", or \"west\" to move to a new location\n" <<
-                "teleport - teleports you to a random location\n" <<
+                "go or move - use \"north\", \"east\", \"south\", or \"west\" to move to a new location\n" <<
 		"items - shows the current items in your inventory \n" <<
                 "look - shows the current location you are in\n" <<
 		"see - shows the names of locations you have visited" <<
-                "quit - quit the game \n";
+		"teleport - teleports you to a random location\n" <<
+		"quit or exit - quit the game \n";
         }
 	
 	//done
@@ -546,7 +546,7 @@ class GAME{
 				currentLocation.set_visited();
 				visited_list.push_back(currentLocation.getName());
 			}
-			currentLocation = currentLocation.getneighbors()[target[0]].get() ;
+			currentLocation = currentLocation.getneighbors()[target[0]] ;
 		} else {
 			std::cout << "That is not a valid location.\n";
 		};
@@ -561,7 +561,7 @@ class GAME{
 		randomloc(currentLocation);
 	}
 	
-	void show_items(std::vector<std::string> target){
+	void show_items(){
             if (inventory.empty()){
                 std::cout << "There is nothing in your inventory \n";
             }
@@ -587,12 +587,12 @@ class GAME{
 	};
 
 	//good
-        void look(std::vector<std::string> target){
+        void look(){
             std::cout << currentLocation.getName() << "\n";
         }
 
 	//good
-        void quit(std::vector<std::string> target){
+        void quit(){
             gameInProgress = false;
             throw std::runtime_error("You have quit the game");
         }
